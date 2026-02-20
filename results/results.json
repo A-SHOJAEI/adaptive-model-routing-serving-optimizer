@@ -1,0 +1,45 @@
+{
+  "model": "AdaptiveRoutingModel",
+  "task": "Model Routing Optimization",
+  "dataset": "Synthetic serving workload (100K requests)",
+  "training": {
+    "epochs_completed": 15,
+    "early_stopping_epoch": 15,
+    "best_epoch": 6,
+    "best_val_loss": 0.000153,
+    "final_train_loss": 0.001789,
+    "final_val_loss": 0.001382,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "total_parameters": 47565
+  },
+  "metrics": {
+    "routing_accuracy": 1.0,
+    "mean_accuracy": 0.9401,
+    "accuracy_degradation_pct": 4.56,
+    "p50_latency_ms": 0.697,
+    "p95_latency_ms": 9.204,
+    "p99_latency_ms": 12.432,
+    "mean_throughput_rps": 1033.36,
+    "peak_throughput_rps": 1066.67,
+    "memory_reduction_pct": 84.70,
+    "cost_reduction_pct": 93.85,
+    "routing_entropy": 0.5395,
+    "routing_policy_regret": 0.5451,
+    "mean_reward": 0.4549,
+    "average_rps": 1593.31
+  },
+  "variant_distribution": {
+    "variant_0_fp32": 22,
+    "variant_1_fp16": 56,
+    "variant_2_int8": 863,
+    "variant_3_pruned": 59
+  },
+  "memory_benchmark": {
+    "batch_1_reduction_pct": 75.0,
+    "batch_8_reduction_pct": 75.0,
+    "batch_32_reduction_pct": 75.0,
+    "batch_64_reduction_pct": 75.0
+  }
+}

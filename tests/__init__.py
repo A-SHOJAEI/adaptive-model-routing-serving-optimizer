@@ -1,0 +1,1 @@
+"""Test suite for adaptive model routing serving optimizer."""

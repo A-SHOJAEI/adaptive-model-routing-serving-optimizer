@@ -1,0 +1,86 @@
+{
+  "benchmark_config": {
+    "num_requests": 10000,
+    "concurrent_users": [
+      1,
+      5,
+      10,
+      20,
+      50
+    ],
+    "request_patterns": [
+      "uniform",
+      "bursty",
+      "gradual_increase"
+    ]
+  },
+  "timestamp": 1771571689.4525547,
+  "memory_benchmark": {
+    "1": {
+      "variant_memory_mb": {
+        "0": 1000.0,
+        "1": 500.0,
+        "2": 250.0,
+        "3": 700.0
+      },
+      "max_memory_mb": 1000.0,
+      "min_memory_mb": 250.0,
+      "memory_reduction_pct": 75.0
+    },
+    "4": {
+      "variant_memory_mb": {
+        "0": 4000.0,
+        "1": 2000.0,
+        "2": 1000.0,
+        "3": 2800.0
+      },
+      "max_memory_mb": 4000.0,
+      "min_memory_mb": 1000.0,
+      "memory_reduction_pct": 75.0
+    },
+    "8": {
+      "variant_memory_mb": {
+        "0": 8000.0,
+        "1": 4000.0,
+        "2": 2000.0,
+        "3": 5600.0
+      },
+      "max_memory_mb": 8000.0,
+      "min_memory_mb": 2000.0,
+      "memory_reduction_pct": 75.0
+    },
+    "16": {
+      "variant_memory_mb": {
+        "0": 16000.0,
+        "1": 8000.0,
+        "2": 4000.0,
+        "3": 11200.0
+      },
+      "max_memory_mb": 16000.0,
+      "min_memory_mb": 4000.0,
+      "memory_reduction_pct": 75.0
+    },
+    "32": {
+      "variant_memory_mb": {
+        "0": 32000.0,
+        "1": 16000.0,
+        "2": 8000.0,
+        "3": 22400.0
+      },
+      "max_memory_mb": 32000.0,
+      "min_memory_mb": 8000.0,
+      "memory_reduction_pct": 75.0
+    },
+    "64": {
+      "variant_memory_mb": {
+        "0": 64000.0,
+        "1": 32000.0,
+        "2": 16000.0,
+        "3": 44800.0
+      },
+      "max_memory_mb": 64000.0,
+      "min_memory_mb": 16000.0,
+      "memory_reduction_pct": 75.0
+    }
+  }
+}

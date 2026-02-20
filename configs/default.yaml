@@ -1,0 +1,140 @@
+# Configuration for Adaptive Model Routing Serving Optimizer
+
+# Random seeds for reproducibility
+seed: 42
+torch_seed: 42
+numpy_seed: 42
+
+# Model configuration
+model:
+  architectures:
+    - resnet50
+    - efficientnet_b0
+    - mobilenet_v2
+    - vit_base_patch16_224
+
+  compression_variants:
+    - type: fp32
+      precision: float32
+      memory_multiplier: 1.0
+      latency_multiplier: 1.0
+    - type: fp16
+      precision: float16
+      memory_multiplier: 0.5
+      latency_multiplier: 0.8
+    - type: int8
+      precision: int8
+      memory_multiplier: 0.25
+      latency_multiplier: 0.6
+    - type: pruned
+      precision: float32
+      sparsity: 0.5
+      memory_multiplier: 0.7
+      latency_multiplier: 0.7
+
+# Data configuration
+data:
+  batch_size: 32
+  validation_split: 0.2
+  num_workers: 4
+  image_size: 224
+  normalize:
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+
+# Training configuration
+training:
+  epochs: 100
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  patience: 10
+  min_delta: 0.001
+  gradient_clip_norm: 1.0
+
+  # Contextual bandit parameters
+  bandit:
+    algorithm: "ucb"
+    exploration_param: 0.1
+    update_frequency: 100
+    memory_size: 10000
+    context_dim: 64
+
+# Routing policy configuration
+routing:
+  sla_constraints:
+    p99_latency_ms: 50
+    accuracy_threshold: 0.985
+    memory_limit_gb: 8
+
+  reward_weights:
+    latency: 0.4
+    accuracy: 0.3
+    memory: 0.2
+    cost: 0.1
+
+  features:
+    - request_complexity
+    - historical_latency
+    - gpu_memory_usage
+    - queue_length
+    - model_load
+    - time_of_day
+
+# Serving configuration
+serving:
+  max_batch_size: 64
+  max_queue_size: 1000
+  timeout_ms: 5000
+  health_check_interval: 30
+
+  triton:
+    url: "localhost:8000"
+    model_repository: "./model_repository"
+    max_concurrent_requests: 100
+
+# Monitoring configuration
+monitoring:
+  metrics_interval: 10
+  log_level: "INFO"
+  export_metrics: true
+  prometheus_port: 8080
+
+  tracking:
+    - latency_p50
+    - latency_p95
+    - latency_p99
+    - throughput_rps
+    - accuracy
+    - gpu_memory_usage
+    - cost_per_inference
+
+# MLflow configuration
+mlflow:
+  tracking_uri: null
+  experiment_name: "adaptive-model-routing"
+  run_name_prefix: "routing-experiment"
+
+# Hardware configuration
+hardware:
+  device: "cuda"
+  mixed_precision: true
+  compile_model: true
+
+# Evaluation configuration
+evaluation:
+  test_split: 0.1
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - latency_p99
+    - memory_usage
+
+  benchmark:
+    num_requests: 10000
+    concurrent_users: [1, 5, 10, 20, 50]
+    request_patterns:
+      - uniform
+      - bursty
+      - gradual_increase
