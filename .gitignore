@@ -14,6 +14,6 @@ checkpoints/
 logs/
 *.pt
 *.pth
-data/
+/data/
 .ipynb_checkpoints/
 training_output.log
